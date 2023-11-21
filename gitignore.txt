@@ -142,6 +142,10 @@ publish/
 # Uncomment if necessary however generally it will be regenerated when needed
 #!**/packages/repositories.config
 
+#File Content Index Files
+*.vsidx
+
+
 # Windows Azure Build Output
 csx/
 *.build.csdef
