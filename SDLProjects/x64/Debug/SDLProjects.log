@@ -1,0 +1,3 @@
+﻿  Game.cpp
+D:\Dev\Templates\SDLProjects\Game.cpp(83): warning C4715: 'Game::init': not all control paths return a value
+  SDLProjects.vcxproj -> D:\Dev\Templates\SDLProjects\x64\Debug\SDLProjects.exe
