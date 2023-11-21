@@ -7,3 +7,5 @@ SDLProjects/.vs/SDLProjects/FileContentIndex/1c7307e1-10e8-4ee1-bc4f-039e1f40a78
 SDLProjects/.vs/SDLProjects/v17/Browse.VC.db
 SDLProjects/.vs/SDLProjects/v17/ipch/AutoPCH/137d286dae045264/GAME.ipch
 SDLProjects/.vs/SDLProjects/v17/Browse.VC.db
+*.db
+SDLProjects/.vs/SDLProjects/v17/.suo
