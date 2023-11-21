@@ -65,8 +65,11 @@ dlldata.c
 # Chutzpah Test files
 _Chutzpah*
 
+*.ipch
+
 # Visual C++ cache files
 ipch/
+*.ipch
 *.aps
 *.ncb
 *.opensdf
