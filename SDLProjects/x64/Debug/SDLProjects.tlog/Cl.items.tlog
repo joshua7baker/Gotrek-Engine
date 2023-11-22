@@ -1,4 +1,7 @@
-D:\Dev\Templates\SDLProjects\Game.cpp;D:\Dev\Templates\SDLProjects\x64\Debug\Game.obj
-D:\Dev\Templates\SDLProjects\Output.cpp;D:\Dev\Templates\SDLProjects\x64\Debug\Output.obj
-D:\Dev\Templates\SDLProjects\TextureManager.cpp;D:\Dev\Templates\SDLProjects\x64\Debug\TextureManager.obj
-D:\Dev\Templates\SDLProjects\Source.cpp;D:\Dev\Templates\SDLProjects\x64\Debug\Source.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\GameObject.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\GameObject.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\ErrorLog.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\ErrorLog.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\Game.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\Game.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\Output.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\Output.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\Shape.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\Shape.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\TextureManager.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\TextureManager.obj
+D:\Dev\Templates\Gotrek-Engine\SDLProjects\Source.cpp;D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\Source.obj

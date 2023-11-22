@@ -7,6 +7,7 @@ const int SCREEN_HEIGHT{ 480 };
 
 SDL_Texture* testTex = nullptr;
 TextureManager* textureManager = nullptr;
+Shape* shape;
 
 Game::Game() {
 
@@ -30,11 +31,11 @@ bool Game::init() {
 	{
 		Output::PrintMessage("SDL Video Library Initialized successfully.");
 
-		//Initialize sdl img for png, this is deinitialized in the game.cpp deconstructor
+		//Initialize sdl img for png, this is deinitialized in the Game.cpp deconstructor
 		if (SDL_Init(IMG_Init(IMG_INIT_PNG) < 0))
 		{
 			Output::PrintError("SDL could not initialize!", SDL_GetError());
-			success = false;
+			success = false; 
 		}
 
 		//Create window
@@ -71,9 +72,12 @@ bool Game::init() {
 			}
 		}
 
+		shape = new Shape(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT /2);
+
+
 		//Test Load
 		textureManager = new TextureManager();
-		testTex = textureManager->LoadTexture(renderer, "assets/testbg.png");
+		testTex = textureManager->loadTexture(renderer, "assets/testbg.png");
 
 		isRunning = true;
 
@@ -123,16 +127,16 @@ void Game::handleEvents()
 			}
 		}
 		#pragma endregion
-
-
-
 	}
 }
 
 void Game::render()
 {
+	//clear renderer
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
-	textureManager->Draw( renderer ,testTex, NULL, NULL);
+	shape->render(renderer);
+	//textureManager->draw( renderer ,testTex, NULL, NULL);
 	SDL_RenderPresent(renderer);
 }
 
@@ -146,5 +150,5 @@ void Game::clean()
 
 void Game::initError()
 {
-
+	std::cout << "error";
 }

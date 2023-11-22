@@ -9,7 +9,7 @@ TextureManager::~TextureManager()
 }
 
 //Pass in file name of asset to load texture
-SDL_Texture* TextureManager::LoadTexture(SDL_Renderer* renderer, const char* texture)
+SDL_Texture* TextureManager::loadTexture(SDL_Renderer* renderer, const char* texture)
 {
 	SDL_Surface* tempSurface{ IMG_Load(texture) };
 	
@@ -33,8 +33,8 @@ SDL_Texture* TextureManager::LoadTexture(SDL_Renderer* renderer, const char* tex
 		return NULL;
 }
 
-//Render texture to screen
-void TextureManager::Draw(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect* src, SDL_Rect* target)
+//render texture to screen
+void TextureManager::draw(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect* src, SDL_Rect* target)
 {
 	SDL_RenderCopy(renderer, texture, src, target);
 }

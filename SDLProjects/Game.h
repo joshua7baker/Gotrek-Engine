@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include "TextureManager.h"
 #include "Output.h"
+#include "Shape.h"
 
 class Game
 {
