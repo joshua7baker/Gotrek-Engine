@@ -18,7 +18,7 @@ Game::~Game() {
 }
 
 bool Game::init() {
-	
+
 	bool success{ true };
 
 	//Initialize SDL Library
@@ -35,7 +35,7 @@ bool Game::init() {
 		if (SDL_Init(IMG_Init(IMG_INIT_PNG) < 0))
 		{
 			Output::PrintError("SDL could not initialize!", SDL_GetError());
-			success = false; 
+			success = false;
 		}
 
 		//Create window
@@ -72,7 +72,7 @@ bool Game::init() {
 			}
 		}
 
-		shape = new Shape(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT /2);
+		shape = new Shape(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 
 		//Test Load
@@ -83,9 +83,7 @@ bool Game::init() {
 
 		return success;
 	}
-
-	}
-
+}
 
 void Game::handleEvents()
 {
@@ -135,7 +133,8 @@ void Game::render()
 	//clear renderer
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
-	shape->render(renderer);
+	//shape->render(renderer);
+	shape->drawDottedLine(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 20, shape->RIGHT);
 	//textureManager->draw( renderer ,testTex, NULL, NULL);
 	SDL_RenderPresent(renderer);
 }
