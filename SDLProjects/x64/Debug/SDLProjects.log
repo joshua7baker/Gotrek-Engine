@@ -1,7 +1,0 @@
-﻿  Game.cpp
-  Shape.cpp
-  Source.cpp
-  TextureManager.cpp
-  Generating Code...
-D:\Dev\Templates\Gotrek-Engine\SDLProjects\Game.cpp(87): warning C4715: 'Game::init': not all control paths return a value
-  SDLProjects.vcxproj -> D:\Dev\Templates\Gotrek-Engine\SDLProjects\x64\Debug\SDLProjects.exe
