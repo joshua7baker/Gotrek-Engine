@@ -69,6 +69,7 @@ FileContentIndex/
 *.ipch
 
 D:/Dev/Templates/Gotrek-Engine/SDLProjects/x64/
+D:/Dev/Templates/Gotrek-Engine/SDLProjects/.vs/SDLProjectsv17/.suo
 
 # Visual C++ cache files
 ipch/
@@ -80,6 +81,7 @@ ipch/
 *.cachefile
 
 v17/
+
 
 # Visual Studio profiler
 *.psess
