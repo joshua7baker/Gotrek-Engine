@@ -21,6 +21,7 @@ Shape::~Shape()
 
 void Shape::drawLine(SDL_Renderer* renderer,int xStart, int yStart, int xEnd, int yEnd)
 {
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
 	SDL_RenderDrawLine(renderer, xStart, yStart, xEnd, yEnd);
 }
 
@@ -122,6 +123,12 @@ void Shape::drawDottedLine(SDL_Renderer* renderer, int x, int y, int count, int 
 	}
 
 	}
+}
+
+void Shape::drawDottedLineShape(SDL_Renderer* renderer, SDL_Point* points, int count)
+{
+	SDL_SetRenderDrawColor(renderer, 0xFF, 0x00, 0x00, 0xFF);
+	SDL_RenderDrawPoints(renderer, points, count);
 }
 
 void Shape::render(SDL_Renderer* renderer, bool fillRect)

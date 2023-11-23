@@ -19,6 +19,7 @@ public:
 
 	void drawLine(SDL_Renderer* renderer, int xStart, int yStart, int xEnd, int yEnd);
 	void drawDottedLine(SDL_Renderer* renderer, int x, int y, int count, int dotSpace, eLineDirection direction);
+	void drawDottedLineShape(SDL_Renderer* renderer, SDL_Point* points, int count);
 
 	//rendering
 	void render(SDL_Renderer* renderer, bool fillRect = false);

@@ -9,6 +9,14 @@ SDL_Texture* testTex = nullptr;
 TextureManager* textureManager = nullptr;
 Shape* shape;
 
+SDL_Point points[5]{
+	{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2},
+	{SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 5},
+	{SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 5},
+	{(SCREEN_WIDTH / 2) - 5, SCREEN_HEIGHT / 2},
+	{(SCREEN_WIDTH / 2) + 5, SCREEN_HEIGHT / 2}
+};
+
 Game::Game() {
 
 }
@@ -134,7 +142,7 @@ void Game::render()
 	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
 	//shape->render(renderer);
-	shape->drawDottedLine(renderer, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 100, 20, shape->RIGHT);
+	shape->drawDottedLineShape(renderer, points, sizeof(points));
 	//textureManager->draw( renderer ,testTex, NULL, NULL);
 	SDL_RenderPresent(renderer);
 }
