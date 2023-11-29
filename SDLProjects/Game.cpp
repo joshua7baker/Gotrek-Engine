@@ -8,6 +8,9 @@ const int SCREEN_HEIGHT{ 480 };
 SDL_Texture* testTex = nullptr;
 TextureManager* textureManager = nullptr;
 Shape* shape;
+Viewport* lViewport;
+Viewport* rViewport;
+Viewport* bViewport;
 
 SDL_Point points[5]{
 	{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2},
@@ -18,7 +21,6 @@ SDL_Point points[5]{
 };
 
 Game::Game() {
-
 }
 
 Game::~Game() {
@@ -85,7 +87,9 @@ bool Game::init() {
 
 		//Test Load
 		textureManager = new TextureManager();
-		testTex = textureManager->loadTexture(renderer, "assets/testbg.png");
+
+		lViewport = new Viewport("LeftVp", 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT /2);
+		rViewport = new Viewport("RightVp", SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 		isRunning = true;
 
@@ -138,12 +142,10 @@ void Game::handleEvents()
 
 void Game::render()
 {
-	//clear renderer
-	SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
 	SDL_RenderClear(renderer);
-	//shape->render(renderer);
+
 	shape->drawDottedLineShape(renderer, points, sizeof(points));
-	//textureManager->draw( renderer ,testTex, NULL, NULL);
+
 	SDL_RenderPresent(renderer);
 }
 

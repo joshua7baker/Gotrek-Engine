@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "Output.h"
 #include "Shape.h"
+#include "Viewport.h"
 
 class Game
 {
