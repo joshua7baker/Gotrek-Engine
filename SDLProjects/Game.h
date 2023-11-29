@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-#include "TextureManager.h"
+#include "Texture.h"
 #include "Output.h"
 #include "Shape.h"
 #include "Viewport.h"

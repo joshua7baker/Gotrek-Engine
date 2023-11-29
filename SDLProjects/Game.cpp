@@ -5,8 +5,7 @@
 const int SCREEN_WIDTH{ 640 };
 const int SCREEN_HEIGHT{ 480 };
 
-SDL_Texture* testTex = nullptr;
-TextureManager* textureManager = nullptr;
+Texture* textureTest = NULL;
 Shape* shape;
 Viewport* lViewport;
 Viewport* rViewport;
@@ -24,7 +23,6 @@ Game::Game() {
 }
 
 Game::~Game() {
-	IMG_Quit();
 }
 
 bool Game::init() {
@@ -86,8 +84,8 @@ bool Game::init() {
 
 
 		//Test Load
-		textureManager = new TextureManager();
-
+		textureTest = new Texture();
+		textureTest->loadTexture(renderer, "assets/testbg.png");
 		lViewport = new Viewport("LeftVp", 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT /2);
 		rViewport = new Viewport("RightVp", SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
@@ -151,8 +149,12 @@ void Game::render()
 
 void Game::clean()
 {
-	SDL_DestroyWindow(gWindow); ///Destroys allocated surface also (gScreenSurface)
+	SDL_DestroyWindow(gWindow);
 	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
+	gWindow = NULL;
+
+	IMG_Quit();
 	SDL_Quit();
 	std::cout << "Game Cleaned!" << std::endl;
 }

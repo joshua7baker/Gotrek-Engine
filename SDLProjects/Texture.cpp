@@ -1,19 +1,19 @@
-#include "TextureManager.h"
+#include "Texture.h"
 
-TextureManager::TextureManager()
+Texture::Texture()
 {
-	texture = NULL;
-	texWidth = 0;
-	texHeight = 0;
+	texture = nullptr;
+	tWidth = 0;
+	tHeight = 0;
 }
 
-TextureManager::~TextureManager()
+Texture::~Texture()
 {
 	free();
 }
 
 //Pass in file name of asset to load texture
-bool TextureManager::loadTexture(SDL_Renderer* renderer, const char* filePath, bool colourKey)
+bool Texture::loadTexture(SDL_Renderer* renderer, const char* filePath)
 {
 	//deallocate existing texture
 	if (texture != NULL)
@@ -25,18 +25,13 @@ bool TextureManager::loadTexture(SDL_Renderer* renderer, const char* filePath, b
 
 	if (tempSurface != NULL)
 	{
-		if (colourKey == true)
-		{
-			SDL_SetColorKey(tempSurface, true, SDL_MapRGB(tempSurface->format, 0, 0xFF, 0xFF));
-		}
-
 		SDL_Texture* tempTexture{ SDL_CreateTextureFromSurface(renderer, tempSurface) };
 
 
 		if (tempTexture != NULL)
 		{
-			texWidth = tempSurface->w;
-			texHeight = tempSurface->h;
+			tWidth = tempSurface->w;
+			tHeight = tempSurface->h;
 
 			//Dealloc old loaded surface
 			SDL_FreeSurface(tempSurface);
@@ -57,29 +52,30 @@ bool TextureManager::loadTexture(SDL_Renderer* renderer, const char* filePath, b
 	}
 }
 
-void TextureManager::free()
+void Texture::free()
 {
 	if (texture != NULL)
 	{
 		SDL_DestroyTexture(texture);
 		texture = NULL;
-		texWidth = 0;
-		texHeight = 0;
+		tWidth = 0;
+		tHeight = 0;
 	}
 }
 
 //render texture to screen
-void TextureManager::render(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect* src, SDL_Rect* target)
+void Texture::render(SDL_Renderer* renderer, int x, int y)
 {
-	SDL_RenderCopy(renderer, texture, src, target);
+	SDL_Rect renderQuad{ x, y, tWidth, tHeight };
+	SDL_RenderCopy(renderer, texture, NULL, &renderQuad);
 }
 
-int TextureManager::getHeight()
+int Texture::getHeight()
 {
-	return 0;
+	return tHeight;
 }
 
-int TextureManager::getWidth()
+int Texture::getWidth()
 {
-	return 0;
+	return tWidth;
 }

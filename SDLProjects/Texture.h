@@ -3,20 +3,20 @@
 #include <SDL_image.h>
 #include <iostream>
 
-class TextureManager
+class Texture
 {
 public:
-	TextureManager();
-	~TextureManager();
+	Texture();
+	~Texture();
 
 	//Load img from specified path
-	bool loadTexture(SDL_Renderer* renderer, const char* filename, bool colourKey);
+	bool loadTexture(SDL_Renderer* renderer, const char* filename);
 
 	//Deallocate texture
 	void free();
 
 	//Render
-	void render(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Rect* src, SDL_Rect* target);
+	void render(SDL_Renderer* renderer, int x, int y);
 
 	//void colourKeyImage(SDL_Surface* surface, int flags, Uint32 key);
 
@@ -27,7 +27,7 @@ public:
 private:
 	SDL_Texture* texture;
 
-	int texWidth;
-	int texHeight;
+	int tWidth;
+	int tHeight;
 };
 
