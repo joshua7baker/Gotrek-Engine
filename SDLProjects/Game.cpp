@@ -1,15 +1,15 @@
 #include "Game.h"
-#include <iostream>
 
 //Screen Dimension Consts
 const int SCREEN_WIDTH{ 640 };
 const int SCREEN_HEIGHT{ 480 };
 
-Texture* textureTest = NULL;
+SpriteSheet* spriteSheet = nullptr;
 Shape* shape;
 Viewport* lViewport;
 Viewport* rViewport;
 Viewport* bViewport;
+Uint8 r;
 
 SDL_Point points[5]{
 	{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2},
@@ -34,6 +34,8 @@ bool Game::init() {
 	{
 		Output::PrintError("SDL could not initialize!", SDL_GetError());
 		success = false;
+
+		return false;
 	}
 	else
 	{
@@ -80,12 +82,13 @@ bool Game::init() {
 			}
 		}
 
+		TextureManager::setRenderer(renderer);
+
 		shape = new Shape(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
+		spriteSheet = new SpriteSheet();
 
-		//Test Load
-		textureTest = new Texture();
-		textureTest->loadTexture(renderer, "assets/testbg.png");
+		//Viewport stuff
 		lViewport = new Viewport("LeftVp", 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT /2);
 		rViewport = new Viewport("RightVp", SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
@@ -130,6 +133,9 @@ void Game::handleEvents()
 				std::cout << "right\n";
 				break;
 
+			case SDLK_q:
+				r += 5;
+
 			default:
 				break;
 			}
@@ -141,6 +147,10 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
+	//textureTest->render(renderer, 0, 0, &spriteSheet->spriteSheet[0]);
+	//textureTest->render(renderer, SCREEN_WIDTH - spriteSheet->spriteSheet[1].x, 0, &spriteSheet->spriteSheet[1], &spriteSheet->spriteSheet[1]);
+	//textureTest->render(renderer, 0, SCREEN_HEIGHT - spriteSheet->spriteSheet[2].h, &spriteSheet->spriteSheet[2]);
+	//textureTest->render(renderer, SCREEN_WIDTH - spriteSheet->spriteSheet[3].x, SCREEN_HEIGHT - spriteSheet->spriteSheet[3].h, &spriteSheet->spriteSheet[3]);
 
 	shape->drawDottedLineShape(renderer, points, sizeof(points));
 

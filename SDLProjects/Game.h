@@ -2,10 +2,12 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <stdio.h>
-#include "Texture.h"
+#include <iostream>
+#include "TextureManager.h"
 #include "Output.h"
 #include "Shape.h"
 #include "Viewport.h"
+#include "SpriteSheet.h"
 
 class Game
 {
@@ -26,5 +28,6 @@ private:
 	bool isRunning;
 	SDL_Window* gWindow;
 	SDL_Surface* gScreenSurface;
+
 };
 
