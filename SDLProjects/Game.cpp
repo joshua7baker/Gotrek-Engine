@@ -1,15 +1,11 @@
 #include "Game.h"
+#include "GameObject.h"
 
 //Screen Dimension Consts
 const int SCREEN_WIDTH{ 640 };
 const int SCREEN_HEIGHT{ 480 };
 
-SpriteSheet* spriteSheet = nullptr;
-Shape* shape;
-Viewport* lViewport;
-Viewport* rViewport;
-Viewport* bViewport;
-Uint8 r;
+GameObject* playerTest = nullptr;
 
 SDL_Point points[5]{
 	{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2},
@@ -82,16 +78,13 @@ bool Game::init() {
 			}
 		}
 
+		//Initialize Manager Variables
 		TextureManager::setRenderer(renderer);
-
-		shape = new Shape(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		SDL_Rect* clip = new SDL_Rect{ 0, 0, 100, 100};
+		playerTest = new GameObject("Player", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/sprites.png", clip);
 
 		spriteSheet = new SpriteSheet();
-
-		//Viewport stuff
-		lViewport = new Viewport("LeftVp", 0, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT /2);
-		rViewport = new Viewport("RightVp", SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-
+		
 		isRunning = true;
 
 		return success;
@@ -133,9 +126,6 @@ void Game::handleEvents()
 				std::cout << "right\n";
 				break;
 
-			case SDLK_q:
-				r += 5;
-
 			default:
 				break;
 			}
@@ -144,19 +134,17 @@ void Game::handleEvents()
 	}
 }
 
+//Render imagery to screen
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//textureTest->render(renderer, 0, 0, &spriteSheet->spriteSheet[0]);
-	//textureTest->render(renderer, SCREEN_WIDTH - spriteSheet->spriteSheet[1].x, 0, &spriteSheet->spriteSheet[1], &spriteSheet->spriteSheet[1]);
-	//textureTest->render(renderer, 0, SCREEN_HEIGHT - spriteSheet->spriteSheet[2].h, &spriteSheet->spriteSheet[2]);
-	//textureTest->render(renderer, SCREEN_WIDTH - spriteSheet->spriteSheet[3].x, SCREEN_HEIGHT - spriteSheet->spriteSheet[3].h, &spriteSheet->spriteSheet[3]);
-
-	shape->drawDottedLineShape(renderer, points, sizeof(points));
+	playerTest->render();
 
 	SDL_RenderPresent(renderer);
 }
 
+
+//Clean and deallocate resources, then quit the application
 void Game::clean()
 {
 	SDL_DestroyWindow(gWindow);

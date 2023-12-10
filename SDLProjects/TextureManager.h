@@ -30,12 +30,12 @@ public:
 	static void setAlpha(SDL_Texture* texture, Uint8 alpha);
 
 	//Draw texture to screen
-	static void render(SDL_Texture* texture, int x, int y, SDL_Rect* src = NULL, SDL_Rect* dest = NULL, int t_Width = 0, int t_Height = 0);
-	void render(SDL_Renderer* renderer, SDL_Rect* src, std::vector<SDL_Rect> spriteSheet);
+	static void render(SDL_Texture* texture, int x = 0, int y = 0, SDL_Rect* src = NULL, SDL_Rect* dest = NULL, int t_OriginalWidth = 0, int t_OriginalHeight = 0);
+	void renderMany(SDL_Renderer* renderer, SDL_Rect* src, std::vector<SDL_Rect> spriteSheet);
 	
 	//Get image dimensions
-	int getHeight(SDL_Texture* texture) ;
-	int getWidth(SDL_Texture* texture);
+	static int getHeight(SDL_Texture* texture) ;
+	static int getWidth(SDL_Texture* texture);
 
 
 private:

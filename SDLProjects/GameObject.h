@@ -4,21 +4,27 @@
 class GameObject
 {
 public:
-	GameObject(const char* name, int x, int y, const char* filePath);
+	GameObject(const char* name, int x, int y, const char* filePath, SDL_Rect* clip = nullptr);
 	~GameObject();
 
 	void update();
-	void render(SDL_Renderer* renderer);
+	void render();
 
 private:
-	const char* name;
+	
+	const char* name; //Game object Name
+
+	//Game objects coordinates
 	int xPos;
 	int yPos;
-	char const* t_FilePath;
 
-	SDL_Texture* objTexture;
-	int t_Width, t_Height;
+	char const* t_FilePath; //File path to load texture from
 
-	SDL_Rect srcRect, destRect;
+	SDL_Texture* objTexture; //Game object texture
+	int t_OriginalWidth, t_OriginalHeight; // Texture height & width
+	int t_ModifiedWidth, t_ModifiedHeight; // Texture height & width if modified by clipping from a sprite sheet/ image
+
+	SDL_Rect* srcRect; //src and destination rects to use for rendering
+	SDL_Rect* destRect;
 };
 

@@ -34,7 +34,7 @@ SDL_Texture* TextureManager::loadTexture(const char* filePath, SDL_Texture* exis
 		free(existingTexture);
 	}
 
-	SDL_Surface* tempSurface{ IMG_Load(filePath) };
+	SDL_Surface* tempSurface{ IMG_Load(filePath) }; //create surface from filepath
 
 	if (tempSurface != NULL)
 	{
@@ -94,60 +94,17 @@ void TextureManager::setAlpha(SDL_Texture* texture, Uint8 alpha)
 	SDL_SetTextureAlphaMod(texture, alpha);
 }
 
-//render texture to screen
-void TextureManager::render(SDL_Texture* texture, int x, int y, SDL_Rect* src, SDL_Rect* dest, int t_Width, int t_Height)
+//render single texture to screen
+void TextureManager::render(SDL_Texture* texture, int x, int y, SDL_Rect* src, SDL_Rect* dest, int t_OriginalWidth, int t_OriginalHeight)
 {
-	SDL_Rect renderQuad{ x, y, 0, 0 };
-
-	//set dest dimensions to clip rect values or loaded texture's dimensions 
-	if (src != NULL)
-	{
-		renderQuad.w = src->w;
-		renderQuad.h = src->h;
-	}
-	else
-	{
-		renderQuad.w = t_Width;
-		renderQuad.h = t_Height;
-	}
-	SDL_RenderCopy(t_Renderer, texture, src, &renderQuad);
+	SDL_RenderCopy(t_Renderer, texture, src, dest);
 }
-//render texture to screen
-//void TextureManager::render(SDL_Renderer* renderer, SDL_Rect* src, std::vector<SDL_Rect> spriteSheet)
-//{
-//	SDL_Rect renderQuad{0, 0, 0, 0 };
-//
-//	if (!spriteSheet.empty())
-//	{
-//		for (SDL_Rect &v : spriteSheet)
-//		{
-//			renderQuad.x = v.x;
-//			renderQuad.y = v.y;
-//			renderQuad.w = v.w;
-//			renderQuad.h = v.h;
-//
-//			SDL_RenderCopy(renderer, texture, src, &renderQuad);
-//		}
-//	}
-//
-//	//set dest dimensions to clip rect values or loaded texture's dimensions 
-//	if (src != NULL)
-//	{
-//		renderQuad.w = src->w;
-//		renderQuad.h = src->h;
-//	}
-//	else
-//	{
-//		renderQuad.w = tWidth;
-//		renderQuad.h = tHeight;
-//	}
-//	SDL_RenderCopy(renderer, texture, src, &renderQuad);
-//}
 
+//return texture height
 int TextureManager::getHeight(SDL_Texture* texture)
 {
 	int texHeight{ 0 };
-	if (SDL_QueryTexture(texture, nullptr, nullptr, &texHeight, nullptr) == 0)
+	if (SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &texHeight) == 0)
 	{
 		return texHeight;
 	}
@@ -156,8 +113,15 @@ int TextureManager::getHeight(SDL_Texture* texture)
 		return 0;
 }
 
+//return texture width
 int TextureManager::getWidth(SDL_Texture* texture)
 {
 	int texWidth{ 0 };
-	return SDL_QueryTexture(texture, nullptr, nullptr, nullptr, &texWidth);
+	if (SDL_QueryTexture(texture, nullptr, nullptr, &texWidth, nullptr) == 0)
+	{
+		return texWidth;
+	}
+	else
+		Output::PrintError("Error occured getting Texture Width: ", SDL_GetError());
+	return 0;
 }
