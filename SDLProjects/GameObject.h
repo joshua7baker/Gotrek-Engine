@@ -9,10 +9,12 @@ public:
 
 	void update();
 	void render();
+	
+	const char* name; //Game object Name
+	int x;
 
 private:
 	
-	const char* name; //Game object Name
 
 	//Game objects coordinates
 	int xPos;

@@ -5,17 +5,8 @@
 const int SCREEN_WIDTH{ 640 };
 const int SCREEN_HEIGHT{ 480 };
 
-GameObject* playerTest = nullptr;
-
-SDL_Point points[5]{
-	{SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2},
-	{SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) + 5},
-	{SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 5},
-	{(SCREEN_WIDTH / 2) - 5, SCREEN_HEIGHT / 2},
-	{(SCREEN_WIDTH / 2) + 5, SCREEN_HEIGHT / 2}
-};
-
 Game::Game() {
+	
 }
 
 Game::~Game() {
@@ -80,13 +71,11 @@ bool Game::init() {
 
 		//Initialize Manager Variables
 		TextureManager::setRenderer(renderer);
-		SDL_Rect* clip = new SDL_Rect{ 0, 0, 100, 100};
-		playerTest = new GameObject("Player", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/sprites.png", clip);
 
-		spriteSheet = new SpriteSheet();
-		
+		GameObject* test = new GameObject("Test", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/foo.png");
+		renderManager = new RenderManager();
+		renderManager->addObject(test);
 		isRunning = true;
-
 		return success;
 	}
 }
@@ -138,8 +127,7 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	playerTest->render();
-
+	renderManager->renderObjects(renderer);
 	SDL_RenderPresent(renderer);
 }
 

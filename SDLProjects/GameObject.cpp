@@ -1,5 +1,6 @@
 #include "GameObject.h"
 #include "TextureManager.h"
+#include "RenderManager.h"
 
 GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL_Rect* clip)
 	: name(name), xPos(x), yPos(y), t_FilePath(filePath)
@@ -39,6 +40,8 @@ GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL
 	 destRect->y = { yPos - (srcRect->h / 2) };
 	 destRect->w = srcRect->w;
 	 destRect->h = srcRect->h;
+
+	 //RenderManager::addObject(this);
 }
 
 GameObject::~GameObject(){
