@@ -73,7 +73,7 @@ bool Game::init() {
 		TextureManager::setRenderer(renderer);
 
 		GameObject* test = new GameObject("Test", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/foo.png");
-		renderManager = new RenderManager();
+		renderManager = new RenderManager(renderer);
 		renderManager->addObject(test);
 		isRunning = true;
 		return success;

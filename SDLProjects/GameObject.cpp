@@ -1,6 +1,4 @@
 #include "GameObject.h"
-#include "TextureManager.h"
-#include "RenderManager.h"
 
 GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL_Rect* clip)
 	: name(name), xPos(x), yPos(y), t_FilePath(filePath)
@@ -45,17 +43,28 @@ GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL
 }
 
 GameObject::~GameObject(){
+
+	//Remove self from RenderManager
 }
 
-void GameObject::render()
-{
-	if (objTexture != NULL)
-		TextureManager::render(objTexture, xPos, yPos, srcRect, destRect, t_OriginalWidth, t_OriginalHeight);
-	else
-		Output::PrintMessage("Failed to call render function inside GameObject.cpp, objTexture was null");
-}
+//void GameObject::render()
+//{
+//	if (objTexture != NULL)
+//		RenderManager::renderObject(objTexture, xPos, yPos, srcRect, destRect, t_OriginalWidth, t_OriginalHeight);
+//	else
+//		Output::PrintMessage("Failed to call render function inside GameObject.cpp, objTexture was null");
+//}
 
 void GameObject::update(){
+}
+
+RenderData* GameObject::getRenderData()
+{
+	objRenderInfo.src = srcRect;
+	objRenderInfo.dest = destRect;
+	objRenderInfo.texture = objTexture;
+
+	return &objRenderInfo;
 }
 
 

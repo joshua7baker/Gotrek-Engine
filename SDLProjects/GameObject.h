@@ -1,6 +1,8 @@
+#pragma once
 #include <SDL.h>
 #include "TextureManager.h"
-#pragma once
+#include "Structs.h"
+
 class GameObject
 {
 public:
@@ -8,13 +10,14 @@ public:
 	~GameObject();
 
 	void update();
-	void render();
-	
+
+	//Get rendering info (called from RenderManager)
+	RenderData* getRenderData();
+
+
 	const char* name; //Game object Name
-	int x;
 
 private:
-	
 
 	//Game objects coordinates
 	int xPos;
@@ -28,5 +31,7 @@ private:
 
 	SDL_Rect* srcRect; //src and destination rects to use for rendering
 	SDL_Rect* destRect;
+
+	RenderData objRenderInfo;
 };
 
