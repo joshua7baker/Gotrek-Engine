@@ -6,7 +6,6 @@ const int SCREEN_WIDTH{ 640 };
 const int SCREEN_HEIGHT{ 480 };
 
 Game::Game() {
-	
 }
 
 Game::~Game() {
@@ -72,9 +71,9 @@ bool Game::init() {
 		//Initialize Manager Variables
 		TextureManager::setRenderer(renderer);
 
-		GameObject* test = new GameObject("Test", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/foo.png");
+		GameObject* gameObjOne = new GameObject("Test", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/foo.png");
+
 		renderManager = new RenderManager(renderer);
-		renderManager->addObject(test);
 		isRunning = true;
 		return success;
 	}
@@ -127,6 +126,7 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
+	
 	renderManager->renderObjects(renderer);
 	SDL_RenderPresent(renderer);
 }

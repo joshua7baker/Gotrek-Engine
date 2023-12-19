@@ -4,7 +4,6 @@ GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL
 	: name(name), xPos(x), yPos(y), t_FilePath(filePath)
 {
 	//Load and initialize texture data for the game object
-	
 	 objTexture = TextureManager::loadTexture(t_FilePath);
 	 t_OriginalWidth = TextureManager::getWidth(objTexture);
 	 t_OriginalHeight = TextureManager::getHeight(objTexture);
@@ -39,25 +38,17 @@ GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL
 	 destRect->w = srcRect->w;
 	 destRect->h = srcRect->h;
 
-	 //RenderManager::addObject(this);
+	 //Initialize render data
+	 RenderData objRenderInfo = { objTexture, srcRect, destRect };
 }
 
 GameObject::~GameObject(){
-
-	//Remove self from RenderManager
 }
-
-//void GameObject::render()
-//{
-//	if (objTexture != NULL)
-//		RenderManager::renderObject(objTexture, xPos, yPos, srcRect, destRect, t_OriginalWidth, t_OriginalHeight);
-//	else
-//		Output::PrintMessage("Failed to call render function inside GameObject.cpp, objTexture was null");
-//}
 
 void GameObject::update(){
 }
 
+//Return GameObject rendering data to the Render Manager.
 RenderData* GameObject::getRenderData()
 {
 	objRenderInfo.src = srcRect;

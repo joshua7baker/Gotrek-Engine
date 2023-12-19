@@ -11,17 +11,13 @@ public:
 
 	void update();
 
-	//Get rendering info (called from RenderManager)
-	RenderData* getRenderData();
-
+	RenderData* getRenderData(); //Get rendering info (called from RenderManager)
 
 	const char* name; //Game object Name
 
 private:
-
-	//Game objects coordinates
-	int xPos;
-	int yPos;
+	int xPos; //Game Object X Coordinate
+	int yPos; //Game Object Y Coordinate
 
 	char const* t_FilePath; //File path to load texture from
 
@@ -29,9 +25,9 @@ private:
 	int t_OriginalWidth, t_OriginalHeight; // Texture height & width
 	int t_ModifiedWidth, t_ModifiedHeight; // Texture height & width if modified by clipping from a sprite sheet/ image
 
-	SDL_Rect* srcRect; //src and destination rects to use for rendering
-	SDL_Rect* destRect;
+	SDL_Rect* srcRect; //src rect to use for rendering
+	SDL_Rect* destRect;//dest rect to use for rendering
 
-	RenderData objRenderInfo;
+	RenderData objRenderInfo; //Render info to be passed to RenderManager
 };
 

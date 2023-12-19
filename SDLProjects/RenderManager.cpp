@@ -1,12 +1,5 @@
 #include "RenderManager.h"
 
-//The render manager is a WIP class which intends to handle all render management in the future, meaning:
-	// Holding all objects which need to be rendered
-	// Handling all render information of objects
-	// Prioritizing rendering priority based on set criterias  e.g. environment, player etc 
-
-//object rendering is done by calling a render function on the game object class from the renderObjects function in RenderManager.cpp
-
 SDL_Renderer* RenderManager::s_renderer = nullptr;
 
 RenderManager::RenderManager(SDL_Renderer* renderer)
@@ -41,7 +34,6 @@ void RenderManager::renderObjects(SDL_Renderer* renderer)
 		};
 	}
 }
-
 
 //Turn parameters into pointers & pass by refs to not copy data over every render call
 //Decouple object render between RenderMan & GameObject to render the obj from here instantly,
