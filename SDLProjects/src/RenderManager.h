@@ -14,7 +14,8 @@ public:
 	static bool setRenderer(SDL_Renderer* renderer);
 	
 	//render objects within objectsToRender list. This should contain all entities which should be rendered to the current window.
-	void renderObjects(SDL_Renderer* renderer); //Call object to render from list
+	void renderObjects(); //Call object to render from list
+	void renderText(TextRenderData* textRenderInfo);
 
 	//render objects to screen (mainly called within GameObject.cpp)
 	void renderObject(GameObject* objToRender);

@@ -7,3 +7,8 @@ struct RenderData {
 	SDL_Rect* src;
 	SDL_Rect* dest;
 };
+
+struct TextRenderData {
+	SDL_Texture* texture;
+	SDL_Rect* dest;
+};

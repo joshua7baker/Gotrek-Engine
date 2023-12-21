@@ -43,6 +43,8 @@ GameObject::GameObject(const char* name, int x, int y, char const* filePath, SDL
 }
 
 GameObject::~GameObject(){
+	delete srcRect;
+	delete destRect;
 }
 
 void GameObject::update(){

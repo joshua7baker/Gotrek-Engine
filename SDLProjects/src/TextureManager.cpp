@@ -2,6 +2,9 @@
 #include "Output.h"
 
 SDL_Renderer* TextureManager::t_Renderer = nullptr;
+TTF_Font* TextureManager::gFont = nullptr;
+SDL_Color* TextureManager::gColor = nullptr;
+
 
 TextureManager::TextureManager()
 {
@@ -23,6 +26,20 @@ bool TextureManager::setRenderer(SDL_Renderer* renderer)
 		Output::PrintMessage("Error initializing renderer in TextureManager.cpp");
 		return false;
 	}
+}
+
+bool TextureManager::setGlobalFont(const char* fontName, int fontSize, SDL_Color textColor)
+{
+	if (fontName != "" && fontName != NULL)
+	{
+		gFont = TTF_OpenFont(fontName, fontSize);
+		if (gFont != NULL)
+			return (gFont);
+		else
+			Output::PrintError("Error opening font.", SDL_GetError());
+	}
+	else
+		return (false);
 }
 
 //Load texture from surface, includes optional parmeters for colorKeying 
@@ -66,6 +83,45 @@ SDL_Texture* TextureManager::loadTexture(const char* filePath, SDL_Texture* exis
 	}
 }
 
+//Load TTF Text ready to render. (SDL_Color parameter may need to be changed later on to be a pointer if passing through lots of SDL_Color type variables
+SDL_Texture* TextureManager::loadRenderedText(const char* textureText, SDL_Color textColor, SDL_Texture* existingTexture)
+{
+	if (existingTexture != NULL)
+	{
+		free(existingTexture);
+	}
+	else 
+	{
+		SDL_Surface* tempTextSurface{};
+
+		//If the textColor value is not empty use it, else load with the default gColor value
+		if (textColor.a != 0 || textColor.b != 0 || textColor.g != 0 || textColor.r != 0)
+		{
+			tempTextSurface = TTF_RenderText_Solid(gFont, textureText, textColor);
+		}
+		else
+		{
+			tempTextSurface = TTF_RenderText_Solid(gFont, textureText, *gColor);
+		}
+
+		if (tempTextSurface != NULL)
+		{
+			SDL_Texture* tempTextTexture = SDL_CreateTextureFromSurface(t_Renderer, tempTextSurface);
+			SDL_FreeSurface(tempTextSurface);
+			
+			if (tempTextTexture != NULL)
+			{
+				return tempTextTexture;
+			}
+			else
+			{
+				Output::PrintMessage("Error loading Rendered Text Texture, tempTextTexture cannont be null");
+				return nullptr;
+			}
+		}
+	}
+}
+
 void TextureManager::free(SDL_Texture* existingTexture)
 {
 	if (existingTexture != NULL)
@@ -73,6 +129,16 @@ void TextureManager::free(SDL_Texture* existingTexture)
 		SDL_DestroyTexture(existingTexture);
 		existingTexture = NULL;
 	}
+}
+
+void TextureManager::freeFont(TTF_Font* fontToFree)
+{
+	if (fontToFree != NULL)
+	{
+		TTF_CloseFont(fontToFree);
+	}
+	else
+		Output::PrintError("SDL error failed to dispose of Font. SDL Error:", SDL_GetError());
 }
 
 //Colour modulate the current TextureManager

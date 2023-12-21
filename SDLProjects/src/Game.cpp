@@ -1,17 +1,27 @@
 #include "Game.h"
 #include "GameObject.h"
+#include "TextObject.h"
 
-//Screen Dimension Consts
-const int SCREEN_WIDTH{ 640 };
-const int SCREEN_HEIGHT{ 480 };
+//Screen Dimension Consts, setup a settings class later on to hold all game settings
+/*const int screenWidth{ 640 };
+const int screenHeight{ 480 }; */ 
+
+TextObject* testText;
 
 Game::Game() {
+	gameSettings = new GameSettings();
 }
 
 Game::~Game() {
 }
 
 bool Game::init() {
+
+	//Initialize game settings as these are mandatory to load SDL_Sub-systems
+	gameSettings->setGameResolution(640, 480);
+
+	screenWidth = *gameSettings->getScreenWidth();
+	screenHeight = *gameSettings->getScreenHeight();
 
 	bool success{ true };
 
@@ -27,21 +37,28 @@ bool Game::init() {
 	{
 		Output::PrintMessage("SDL Video Library Initialized successfully.");
 
-		//Initialize sdl img for png, this is deinitialized in the Game.cpp deconstructor
+		//Initialize SDL IMG
 		if (SDL_Init(IMG_Init(IMG_INIT_PNG) < 0))
 		{
 			Output::PrintError("SDL could not initialize!", SDL_GetError());
 			success = false;
 		}
 
-		//Create window
-		gWindow = SDL_CreateWindow("Shooter", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		//Initialize SDL TTF
+		if (SDL_Init(TTF_Init() == -1))
+		{
+			Output::PrintError("SDL ttf could not be initialized!", SDL_GetError());
+			success = false;
+		}
+
+		//Create Window
+		gWindow = SDL_CreateWindow("Shooter", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, screenWidth, screenHeight, SDL_WINDOW_SHOWN);
 		if (gWindow == NULL)
 		{
 			Output::PrintError("Window could not be created!", SDL_GetError());
 			success = false;
 		}
-		//create renderer
+		//Create Renderer
 		else
 		{
 			renderer = SDL_CreateRenderer(gWindow, -1, 0);
@@ -53,7 +70,7 @@ bool Game::init() {
 			else
 			{
 				//Set renderer scaling
-				SDL_RenderSetLogicalSize(renderer, SCREEN_WIDTH, SCREEN_HEIGHT);
+				SDL_RenderSetLogicalSize(renderer, screenWidth, screenHeight);
 
 				//Get window surface
 				gScreenSurface = SDL_GetWindowSurface(gWindow);
@@ -68,10 +85,13 @@ bool Game::init() {
 			}
 		}
 
-		//Initialize Manager Variables
+		//Initialize Texture Manager Variables
 		TextureManager::setRenderer(renderer);
+		TextureManager::setGlobalFont("assets/fonts/Freedom-10eM.ttf", 32, { 0,0,0,0 });
 
-		GameObject* gameObjOne = new GameObject("Test", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, "assets/foo.png");
+		//testText = new TextObject("5", "5", screenWidth / 2, screenHeight / 2, "assets/fonts/Freedom-10eM.ttf");
+
+		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png");
 
 		renderManager = new RenderManager(renderer);
 		isRunning = true;
@@ -126,8 +146,8 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	
-	renderManager->renderObjects(renderer);
+	//renderManager->renderText(testText->getRenderInfo());
+	//renderManager->renderObjects();
 	SDL_RenderPresent(renderer);
 }
 

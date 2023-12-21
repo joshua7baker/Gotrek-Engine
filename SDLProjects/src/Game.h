@@ -8,6 +8,7 @@
 #include "Shape.h"
 #include "Viewport.h"
 #include "RenderManager.h"
+#include "GameSettings.h"
 
 class Game
 {
@@ -29,6 +30,10 @@ private:
 	SDL_Window* gWindow;
 	SDL_Surface* gScreenSurface;
 	RenderManager* renderManager;
+	GameSettings* gameSettings;
+
+	int screenWidth;
+	int screenHeight;
 
 };
 

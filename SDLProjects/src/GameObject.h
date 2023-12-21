@@ -11,7 +11,7 @@ public:
 
 	void update();
 
-	RenderData* getRenderData(); //Get rendering info (called from RenderManager)
+	RenderData* getRenderData(); //Get rendering info required for rendering (called from RenderManager)
 
 	const char* name; //Game object Name
 

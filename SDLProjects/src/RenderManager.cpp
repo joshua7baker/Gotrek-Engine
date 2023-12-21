@@ -15,7 +15,10 @@ RenderManager::~RenderManager()
 bool RenderManager::setRenderer(SDL_Renderer* renderer)
 {
 	if (renderer != NULL)
+	{
 		s_renderer = renderer;
+		return true;
+	}
 	else
 	{
 		Output::PrintMessage("Error setting s_renderer in RenderManager, renderer = cannot be null");
@@ -24,7 +27,7 @@ bool RenderManager::setRenderer(SDL_Renderer* renderer)
 }
 
 //Render all game objects in objects to render vector
-void RenderManager::renderObjects(SDL_Renderer* renderer)
+void RenderManager::renderObjects()
 {
 	if (!objectsToRender.empty())
 	{
@@ -33,6 +36,11 @@ void RenderManager::renderObjects(SDL_Renderer* renderer)
 			renderObject(&obj);
 		};
 	}
+}
+
+void RenderManager::renderText(TextRenderData* textRenderInfo)
+{
+	SDL_RenderCopy(s_renderer, textRenderInfo->texture, nullptr, textRenderInfo->dest);
 }
 
 //Turn parameters into pointers & pass by refs to not copy data over every render call

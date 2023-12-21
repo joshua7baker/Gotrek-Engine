@@ -137,28 +137,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="ErrorLog.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Output.cpp" />
-    <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="Shape.cpp" />
-    <ClCompile Include="SpriteSheet.cpp" />
-    <ClCompile Include="TextureManager.cpp" />
-    <ClCompile Include="Source.cpp" />
-    <ClCompile Include="Viewport.cpp" />
+    <ClCompile Include="src\GameSettings.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\ErrorLog.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Output.cpp" />
+    <ClCompile Include="src\RenderManager.cpp" />
+    <ClCompile Include="src\Shape.cpp" />
+    <ClCompile Include="src\SpriteSheet.cpp" />
+    <ClCompile Include="src\TextureManager.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\Viewport.cpp" />
+    <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h" />
-    <ClInclude Include="ErrorLog.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Output.h" />
-    <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="Shape.h" />
-    <ClInclude Include="SpriteSheet.h" />
-    <ClInclude Include="Structs.h" />
-    <ClInclude Include="TextureManager.h" />
-    <ClInclude Include="Viewport.h" />
+    <ClInclude Include="src\GameSettings.h" />
+    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\ErrorLog.h" />
+    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\Output.h" />
+    <ClInclude Include="src\RenderManager.h" />
+    <ClInclude Include="src\Shape.h" />
+    <ClInclude Include="src\SpriteSheet.h" />
+    <ClInclude Include="src\Structs.h" />
+    <ClInclude Include="src\TextureManager.h" />
+    <ClInclude Include="src\Viewport.h" />
+    <ClInclude Include="src\TextObject.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
