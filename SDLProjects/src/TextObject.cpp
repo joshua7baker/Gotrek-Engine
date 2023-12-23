@@ -4,7 +4,7 @@
 TextObject::TextObject(const char* name, const char* textContent, int x, int y, char const* filePath)
 	: name(name), textContent(textContent), xPos(x), yPos(y), t_FilePath(filePath)
 {
-	t_Texture = TextureManager::loadRenderedText(t_FilePath);
+	t_Texture = TextureManager::loadRenderedText(textContent, t_FilePath);
 	t_OriginalWidth = TextureManager::getWidth(t_Texture);
 	t_OriginalHeight = TextureManager::getHeight(t_Texture);
 	t_ModifiedWidth = 0;
@@ -12,12 +12,9 @@ TextObject::TextObject(const char* name, const char* textContent, int x, int y, 
 
 	activeFont = nullptr;
 	
-	dest->x = xPos;
-	dest->y = yPos;
-	dest->w = t_OriginalWidth;
-	dest->h = t_OriginalHeight;
+	destRect = new SDL_Rect({ xPos, yPos, t_OriginalWidth, t_OriginalHeight });
 
-	renderInfo = new TextRenderData { t_Texture, dest };
+	renderInfo = new TextRenderData { t_Texture, destRect };
 }
 
 TextObject::~TextObject()

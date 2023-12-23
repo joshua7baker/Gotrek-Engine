@@ -16,13 +16,13 @@ public:
 
 	//set renderer to be used for all rendering functionality in the TextureManager
 	static bool setRenderer(SDL_Renderer* renderer);
-	static bool setGlobalFont(const char* fontName, int fontSize, SDL_Color textColor);
+	static bool setDefaultFont(const char* fontName, int fontSize, SDL_Color textColor); //Set default font to be used when loading Text textures
 
 	//Load img from specified path
 	static SDL_Texture* loadTexture(const char* filename, SDL_Texture* existingTexture = nullptr, bool keyColour = false, SDL_Color color = {0,0,0});
 
 	//Load text to render using SDL2_ttf
-	static SDL_Texture* loadRenderedText(const char* textureText = nullptr, SDL_Color textColor = {0,0,0,0}, SDL_Texture* existingTexture = nullptr);
+	static SDL_Texture* loadRenderedText(const char* textureText = nullptr, const char* fontToUse = nullptr, int* fontSize= nullptr, SDL_Color* textColor = nullptr, SDL_Texture* existingTexture = nullptr);
 
 	//Deallocate texture
 	static void free(SDL_Texture* existingTexture);
@@ -49,9 +49,13 @@ public:
 
 private:
 	static SDL_Renderer* t_Renderer;
-	static TTF_Font* gFont;
-	static int* gTextSize;
-	static SDL_Color* gColor;
+	
+	//Text rendering defaults
+	static const char* defaultFont;
+	static int defaultFontSize;
+	static SDL_Color defaultColor; //default color to load font with if no SDL_Color param is passed into loadRenderedText()
+	static SDL_Color nullColor;
+
 
 };
 

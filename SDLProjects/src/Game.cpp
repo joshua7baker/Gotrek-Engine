@@ -7,6 +7,8 @@
 const int screenHeight{ 480 }; */ 
 
 TextObject* testText;
+TextObject* testText2;
+TextObject* testText3;
 
 Game::Game() {
 	gameSettings = new GameSettings();
@@ -87,9 +89,11 @@ bool Game::init() {
 
 		//Initialize Texture Manager Variables
 		TextureManager::setRenderer(renderer);
-		TextureManager::setGlobalFont("assets/fonts/Freedom-10eM.ttf", 32, { 0,0,0,0 });
+		TextureManager::setDefaultFont("assets/fonts/Freedom-10eM.ttf", 32, { 0xFF,0xFF,0xFF,0xFF });
 
-		//testText = new TextObject("5", "5", screenWidth / 2, screenHeight / 2, "assets/fonts/Freedom-10eM.ttf");
+		testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 1.5, nullptr);
+		testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
+		testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
 
 		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png");
 
@@ -146,7 +150,10 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//renderManager->renderText(testText->getRenderInfo());
+	renderManager->renderText(testText->getRenderInfo());
+	renderManager->renderText(testText2->getRenderInfo());
+	renderManager->renderText(testText3->getRenderInfo());
+
 	//renderManager->renderObjects();
 	SDL_RenderPresent(renderer);
 }
@@ -159,7 +166,8 @@ void Game::clean()
 	SDL_DestroyRenderer(renderer);
 	renderer = NULL;
 	gWindow = NULL;
-
+	
+	TTF_Quit();
 	IMG_Quit();
 	SDL_Quit();
 	std::cout << "Game Cleaned!" << std::endl;

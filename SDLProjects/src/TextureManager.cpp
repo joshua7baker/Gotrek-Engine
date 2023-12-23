@@ -2,9 +2,10 @@
 #include "Output.h"
 
 SDL_Renderer* TextureManager::t_Renderer = nullptr;
-TTF_Font* TextureManager::gFont = nullptr;
-SDL_Color* TextureManager::gColor = nullptr;
-
+const char* TextureManager::defaultFont = nullptr;
+int TextureManager::defaultFontSize{ 0 };
+SDL_Color TextureManager::defaultColor {};
+SDL_Color TextureManager::nullColor{};
 
 TextureManager::TextureManager()
 {
@@ -28,18 +29,47 @@ bool TextureManager::setRenderer(SDL_Renderer* renderer)
 	}
 }
 
-bool TextureManager::setGlobalFont(const char* fontName, int fontSize, SDL_Color textColor)
+bool TextureManager::setDefaultFont(const char* fontName, int fontSize, SDL_Color textColor)
 {
+	bool fontValid{};
+
 	if (fontName != "" && fontName != NULL)
 	{
-		gFont = TTF_OpenFont(fontName, fontSize);
-		if (gFont != NULL)
-			return (gFont);
-		else
-			Output::PrintError("Error opening font.", SDL_GetError());
+		defaultFont = fontName;
 	}
 	else
-		return (false);
+	{
+		Output::PrintMessage("Default font not assigned, fontName cannot be null or empty");
+		fontValid = false;
+	}
+
+	if (fontSize != 0)
+	{
+		defaultFontSize = fontSize;
+	}
+	else
+	{
+		Output::PrintMessage("Default font size not assigned, fontSize cannot must be greater than 0");
+		fontValid = false;
+	}
+
+	if ((textColor.r <= 255 && textColor.r >= 0) && (textColor.g <= 255 && textColor.g >= 0) && (textColor.b <= 255 && textColor.b >= 0) && (textColor.a <= 255 && textColor.a >= 0))
+	{
+		defaultColor = textColor;
+	}
+	else
+	{
+		Output::PrintMessage("Default color not assigned, color value out of range, must be between 0-255");
+		fontValid = false;
+	}
+
+	if (fontValid)
+		return fontValid;
+	else
+	{
+		Output::PrintMessage("Failed to assign default font texture values. See output log for more details.");
+		return false;
+	}
 }
 
 //Load texture from surface, includes optional parmeters for colorKeying 
@@ -84,31 +114,38 @@ SDL_Texture* TextureManager::loadTexture(const char* filePath, SDL_Texture* exis
 }
 
 //Load TTF Text ready to render. (SDL_Color parameter may need to be changed later on to be a pointer if passing through lots of SDL_Color type variables
-SDL_Texture* TextureManager::loadRenderedText(const char* textureText, SDL_Color textColor, SDL_Texture* existingTexture)
+SDL_Texture* TextureManager::loadRenderedText(const char* textureText, const char* fontToUse, int* fontSize, SDL_Color* textColor, SDL_Texture* existingTexture)
 {
 	if (existingTexture != NULL)
 	{
 		free(existingTexture);
 	}
-	else 
-	{
-		SDL_Surface* tempTextSurface{};
 
-		//If the textColor value is not empty use it, else load with the default gColor value
-		if (textColor.a != 0 || textColor.b != 0 || textColor.g != 0 || textColor.r != 0)
-		{
-			tempTextSurface = TTF_RenderText_Solid(gFont, textureText, textColor);
-		}
-		else
-		{
-			tempTextSurface = TTF_RenderText_Solid(gFont, textureText, *gColor);
-		}
+	const char* tempFontPath{ (fontToUse != NULL) ? fontToUse : defaultFont }; //Check if specific font was defined to be used, else use the default set font
+	int tempFontSize { (fontSize != NULL) ? *fontSize : defaultFontSize }; // Check if specific font size was defined to be used, else use the default set font size
+		
+	SDL_Color tempColor{};
+
+	//Compare memory blocks to identify whether the values at each block are the same or different to determine whether to use the default color or not
+	if (memcmp(&textColor, &nullColor, sizeof(SDL_Color)) != 0)
+	{
+		tempColor = *textColor;
+	}
+	else
+		tempColor = defaultColor;
+
+	TTF_Font* tempFont = TTF_OpenFont(tempFontPath, tempFontSize);
+	
+	if (tempFont != NULL)
+	{
+		SDL_Surface* tempTextSurface{ TTF_RenderText_Solid(tempFont, textureText, tempColor) };
+		TTF_CloseFont(tempFont);
 
 		if (tempTextSurface != NULL)
 		{
 			SDL_Texture* tempTextTexture = SDL_CreateTextureFromSurface(t_Renderer, tempTextSurface);
 			SDL_FreeSurface(tempTextSurface);
-			
+
 			if (tempTextTexture != NULL)
 			{
 				return tempTextTexture;
@@ -119,6 +156,16 @@ SDL_Texture* TextureManager::loadRenderedText(const char* textureText, SDL_Color
 				return nullptr;
 			}
 		}
+		else
+		{
+			Output::PrintError("Error loading texture surface", SDL_GetError());
+			return nullptr;
+		}
+	}
+	else
+	{
+		Output::PrintError("Error opening font", SDL_GetError());
+		return nullptr;
 	}
 }
 

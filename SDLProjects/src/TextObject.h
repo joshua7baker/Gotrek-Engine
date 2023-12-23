@@ -33,7 +33,7 @@ private:
 	int t_OriginalWidth, t_OriginalHeight; // Texture height & width
 	int t_ModifiedWidth, t_ModifiedHeight; // Texture height & width if modified by clipping from a sprite sheet/ image
 
-	SDL_Rect* dest;
+	SDL_Rect* destRect;
 	TTF_Font* activeFont; // current font to render text with
 
 	TextRenderData* renderInfo; // render data to use for rendering text
