@@ -8,7 +8,7 @@
 class TextObject
 {
 public:
-	TextObject(const char* name, const char* textContent, int x, int y, char const* filePath);
+	TextObject(const char* name, const char* textContent, int x, int y, char const* fontFilePath = nullptr);
 	~TextObject();
 
 	int getTextWidth();

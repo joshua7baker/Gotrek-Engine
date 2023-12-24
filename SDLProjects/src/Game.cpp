@@ -6,7 +6,7 @@
 /*const int screenWidth{ 640 };
 const int screenHeight{ 480 }; */ 
 
-TextObject* testText;
+TextObject* testText = nullptr;
 TextObject* testText2;
 TextObject* testText3;
 
@@ -91,7 +91,7 @@ bool Game::init() {
 		TextureManager::setRenderer(renderer);
 		TextureManager::setDefaultFont("assets/fonts/Freedom-10eM.ttf", 32, { 0xFF,0xFF,0xFF,0xFF });
 
-		testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 1.5, nullptr);
+		testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 5);
 		testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
 		testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
 

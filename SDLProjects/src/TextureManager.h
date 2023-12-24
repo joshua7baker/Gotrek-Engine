@@ -15,18 +15,19 @@ public:
 	~TextureManager();
 
 	//set renderer to be used for all rendering functionality in the TextureManager
-	static bool setRenderer(SDL_Renderer* renderer);
+	static bool setRenderer(SDL_Renderer* renderer); //set static renderer variable to utilize in TextureManager
 	static bool setDefaultFont(const char* fontName, int fontSize, SDL_Color textColor); //Set default font to be used when loading Text textures
+	static const char* getDefaultFont();
 
 	//Load img from specified path
-	static SDL_Texture* loadTexture(const char* filename, SDL_Texture* existingTexture = nullptr, bool keyColour = false, SDL_Color color = {0,0,0});
+	static SDL_Texture* loadTexture(const char* filename, SDL_Texture* existingTexture = nullptr, bool keyColour = false, SDL_Color color = {0,0,0}); //Load img texture from png
 
 	//Load text to render using SDL2_ttf
-	static SDL_Texture* loadRenderedText(const char* textureText = nullptr, const char* fontToUse = nullptr, int* fontSize= nullptr, SDL_Color* textColor = nullptr, SDL_Texture* existingTexture = nullptr);
+	static SDL_Texture* loadRenderedText(const char* textureText = nullptr, const char* fontToUse = nullptr, int* fontSize= nullptr, SDL_Color* textColor = nullptr, SDL_Texture* existingTexture = nullptr); //load text with defined font & relevant properties
 
 	//Deallocate texture
-	static void free(SDL_Texture* existingTexture);
-	static void freeFont(TTF_Font* fontToFree);
+	static void free(SDL_Texture* existingTexture); //deallocate texture
+	static void freeFont(TTF_Font* fontToFree); //deallocate font
 
 
 	//Set color modulation

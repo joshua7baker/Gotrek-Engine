@@ -9,6 +9,7 @@ SDL_Color TextureManager::nullColor{};
 
 TextureManager::TextureManager()
 {
+
 }
 
 TextureManager::~TextureManager()
@@ -31,7 +32,7 @@ bool TextureManager::setRenderer(SDL_Renderer* renderer)
 
 bool TextureManager::setDefaultFont(const char* fontName, int fontSize, SDL_Color textColor)
 {
-	bool fontValid{};
+	bool fontValid{true};
 
 	if (fontName != "" && fontName != NULL)
 	{
@@ -70,6 +71,11 @@ bool TextureManager::setDefaultFont(const char* fontName, int fontSize, SDL_Colo
 		Output::PrintMessage("Failed to assign default font texture values. See output log for more details.");
 		return false;
 	}
+}
+
+const char* TextureManager::getDefaultFont()
+{
+	return nullptr;
 }
 
 //Load texture from surface, includes optional parmeters for colorKeying 
@@ -121,7 +127,7 @@ SDL_Texture* TextureManager::loadRenderedText(const char* textureText, const cha
 		free(existingTexture);
 	}
 
-	const char* tempFontPath{ (fontToUse != NULL) ? fontToUse : defaultFont }; //Check if specific font was defined to be used, else use the default set font
+	const char* tempFontPath{ (fontToUse != NULL && fontToUse != "") ? fontToUse : defaultFont}; //Check if specific font was defined to be used, else use the default set font
 	int tempFontSize { (fontSize != NULL) ? *fontSize : defaultFontSize }; // Check if specific font size was defined to be used, else use the default set font size
 		
 	SDL_Color tempColor{};
@@ -139,7 +145,7 @@ SDL_Texture* TextureManager::loadRenderedText(const char* textureText, const cha
 	if (tempFont != NULL)
 	{
 		SDL_Surface* tempTextSurface{ TTF_RenderText_Solid(tempFont, textureText, tempColor) };
-		TTF_CloseFont(tempFont);
+		freeFont(tempFont);
 
 		if (tempTextSurface != NULL)
 		{
