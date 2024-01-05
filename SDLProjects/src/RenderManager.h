@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include "GameObject.h"
+#include "Button.h"
 #include "Structs.h"
 
 class RenderManager
@@ -18,7 +19,8 @@ public:
 	void renderText(TextRenderData* textRenderInfo);
 
 	//render objects to screen (mainly called within GameObject.cpp)
-	void renderObject(GameObject* objToRender);
+	void renderGameObject(GameObject* objToRender);
+	void renderButtonObject(RenderableObject* objToRender);
 
 	void addObject(GameObject* objToRender); //Add game object to vector list of objects to be rendered to screen.
 	void removeObject(GameObject &objToRender); //Remove game object from vector list of objects to be rendered to screen.

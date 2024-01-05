@@ -33,7 +33,7 @@ void RenderManager::renderObjects()
 	{
 		for (GameObject &obj : objectsToRender)
 		{
-			renderObject(&obj);
+			renderGameObject(&obj);
 		};
 	}
 }
@@ -46,7 +46,9 @@ void RenderManager::renderText(TextRenderData* textRenderInfo)
 //Turn parameters into pointers & pass by refs to not copy data over every render call
 //Decouple object render between RenderMan & GameObject to render the obj from here instantly,
 //opposed to calling obj.render from rendermanager to gameobject.cpp then back to RenderManager which is what currently happens
-void RenderManager::renderObject(GameObject* objToRender)
+
+//Change input parameter type to use RenderData so the function can be utilized for various rendering requirements
+void RenderManager::renderGameObject(GameObject* objToRender)
 {
 	RenderData* tempRenderData = objToRender->getRenderData();
 
@@ -62,6 +64,25 @@ void RenderManager::renderObject(GameObject* objToRender)
 	else 
 		Output::PrintMessage("Error getting rendering GameObject, s_renderer cannot be null");
 }
+
+//Change input parameter type to use RenderData so the function can be utilized for various rendering requirements
+void RenderManager::renderButtonObject(RenderableObject* objToRender)
+{
+	S_RenderData* tempRenderData = objToRender->getRenderData();
+
+	if (s_renderer != nullptr)
+	{
+		if (tempRenderData != nullptr && tempRenderData->texture != nullptr)
+		{
+			SDL_RenderCopy(s_renderer, tempRenderData->texture, tempRenderData->src, tempRenderData->dest);
+		}
+		else
+			Output::PrintMessage("Error rendering copy of GameObject, RenderData cannot be null and must have a Texture");
+	}
+	else
+		Output::PrintMessage("Error getting rendering GameObject, s_renderer cannot be null");
+}
+
 
 //Add game object to render to vector
 void RenderManager::addObject(GameObject* objToRender)

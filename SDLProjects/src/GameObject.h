@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "TextureManager.h"
+#include "RenderableObject.h"
 #include "Structs.h"
 
 class GameObject

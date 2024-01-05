@@ -2,12 +2,12 @@
 
 SpriteSheet::SpriteSheet()
 {
-    texName = "assets/sprites.png";
+    texName = "assets/buttontest.png";
 
-    spriteSheet.push_back({ 0,  0,  100,100 }); //top left
-    spriteSheet.push_back({ 100,0,  100,100 }); //top right
-    spriteSheet.push_back({ 0,  100,100,100 }); //bottom left
-    spriteSheet.push_back({ 100,100,100,100 }); //bottom right
+    spriteSheet.push_back({ 0,  0,  150,100 }); //top left
+    spriteSheet.push_back({ 150,0,  150,100 }); //top right
+    spriteSheet.push_back({ 0,  100,150,240 }); //bottom left
+    spriteSheet.push_back({ 150,100,150,240 }); //bottom right
 
     //Set top left sprite
     spriteSheet[0].x = 0;
@@ -32,13 +32,11 @@ SpriteSheet::SpriteSheet()
     spriteSheet[3].y = 100;
     spriteSheet[3].w = 100;
     spriteSheet[3].h = 100;
-
 }
 
 SpriteSheet::~SpriteSheet()
 {
 }
-
 
 std::vector<SDL_Rect> SpriteSheet::getSprites()
 {

@@ -29,7 +29,6 @@ public:
 	static void free(SDL_Texture* existingTexture); //deallocate texture
 	static void freeFont(TTF_Font* fontToFree); //deallocate font
 
-
 	//Set color modulation
 	static void setColour(SDL_Texture* texture, Uint8 red, Uint8 green, Uint8 blue);
 

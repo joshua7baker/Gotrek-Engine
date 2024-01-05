@@ -137,6 +137,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\RenderableObject.cpp" />
+    <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\GameSettings.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\ErrorLog.cpp" />
@@ -151,6 +153,8 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\RenderableObject.h" />
+    <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\GameSettings.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\ErrorLog.h" />

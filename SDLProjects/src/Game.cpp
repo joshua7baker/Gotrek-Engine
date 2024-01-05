@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "TextObject.h"
+#include "Button.h"
 
 //Screen Dimension Consts, setup a settings class later on to hold all game settings
 /*const int screenWidth{ 640 };
@@ -9,6 +10,7 @@ const int screenHeight{ 480 }; */
 TextObject* testText = nullptr;
 TextObject* testText2;
 TextObject* testText3;
+Button* testBtn;
 
 Game::Game() {
 	gameSettings = new GameSettings();
@@ -88,12 +90,23 @@ bool Game::init() {
 		}
 
 		//Initialize Texture Manager Variables
-		TextureManager::setRenderer(renderer);
-		TextureManager::setDefaultFont("assets/fonts/Freedom-10eM.ttf", 32, { 0xFF,0xFF,0xFF,0xFF });
+		if (TextureManager::setRenderer(renderer))
+		{
+			Output::PrintMessage("TextureManager.cpp default renderer set successfully.");
+		}
+		else
+			Output::PrintMessage("TextureManager.cpp default renderer setup failed.");
 
-		testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 5);
-		testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
-		testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
+		if (TextureManager::setDefaultFont("assets/fonts/Freedom-10eM.ttf", 32, { 0xFF,0xFF,0xFF,0xFF }))
+		{
+			Output::PrintMessage("Default font setup successfully.");
+		}
+		else 
+			Output::PrintMessage("Default font setup failed.");
+
+		//testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 5);
+		//testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
+		//testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
 
 		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png");
 
@@ -150,9 +163,6 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	renderManager->renderText(testText->getRenderInfo());
-	renderManager->renderText(testText2->getRenderInfo());
-	renderManager->renderText(testText3->getRenderInfo());
 
 	//renderManager->renderObjects();
 	SDL_RenderPresent(renderer);
