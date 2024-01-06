@@ -5,15 +5,15 @@
 class SpriteSheet
 {
 public:
-	SpriteSheet();
+	SpriteSheet(const char* texName);
 	~SpriteSheet();
 
-	std::vector<SDL_Rect> getSprites();
+	std::vector<SDL_Rect>* getSprites();
 	const char* getTextureName();
 
 	std::vector<SDL_Rect> spriteSheet;
 
 private:
-	const char* texName;
+	const char* sheetName;
 };
 

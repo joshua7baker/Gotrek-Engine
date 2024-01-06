@@ -2,66 +2,65 @@
 #include "Output.h"
 #include "TextureManager.h"
 
-Button::Button(std::string& name, int x, int y, int& width, int& height, std::string* textContent,  const char* textureFilePath, SpriteSheet* spriteSheet)
-	: buttonName(name), xPos(x), yPos(y), buttonWidth(width), buttonHeight(height), buttonText(*textContent), t_FilePath(textureFilePath)
+Button::Button(std::string name, int x, int y, int width, int height, std::string textContent, const char* textureFilePath, SpriteSheet* spriteSheet)
+	: buttonName(name), xPos(x), yPos(y), buttonWidth(width), buttonHeight(height)
 {
 	if (name == "")
 	{
 		Output::PrintMessage("Button Name could not be assigned, value cannot be empty");
 	}
-	if (buttonText == "")
-	{
-		Output::PrintMessage("Button Text could not be assigned, value cannot be empty");
-	}
 
-	b_spriteSheet = nullptr; 
+	if (textContent != "")
+		buttonText = textContent;
+
+	if (textureFilePath != "")
+		t_FilePath = textureFilePath;
+
 	b_Texture = nullptr;
 
+	if (textureFilePath != "" && textureFilePath != nullptr)
+	{
+		b_Texture = { TextureManager::loadTexture(t_FilePath) };
+	}
+
 	if (spriteSheet != nullptr)
-	{
-		b_spriteSheet = spriteSheet;
-	}
-	else
-	{
-		if (textureFilePath != "" && textureFilePath != nullptr)
-		{
-			b_Texture = { TextureManager::loadTexture(t_FilePath) };
-		}
-	}
-	if (b_Texture == nullptr && spriteSheet == nullptr)
-		Output::PrintMessage("Error in Button.cpp, one of either b_Texture or spriteSheet must have a value. Cannot both be null");
+		setSpriteSheet(spriteSheet);
 
-	m_Position.x = 0;
-	m_Position.y = 0;
+	setPosition(x, y);
 
+	destRect = {xPos, yPos, width, height};
+	setRenderDest(destRect);
 	setButtonStatus(BUTTON_SPRITE_MOUSE_OUT);
+	setRenderTexture(b_Texture);
 }
 
-Button::~Button()
-{
+Button::~Button(){
 }
 
 void Button::setButtonStatus(EButtonSprite newStatus)
 {
-	buttonStatusSprite = newStatus;
+	buttonStatusSprite = newStatus; //Set new button sprite status
 	switch (buttonStatusSprite)
 	{
 		case BUTTON_SPRITE_MOUSE_OUT:
-
+			setSpriteSheetSrcRect((int)BUTTON_SPRITE_MOUSE_OUT);
 			break;
 
 		case BUTTON_SPRITE_MOUSE_OVER_MOTION:
+			setSpriteSheetSrcRect((int)BUTTON_SPRITE_MOUSE_OVER_MOTION);
 			break;
 
 		case BUTTON_SPRITE_MOUSE_DOWN:
+			setSpriteSheetSrcRect((int)BUTTON_SPRITE_MOUSE_DOWN);
 			break;
 
 		case BUTTON_SPRITE_MOUSE_UP:
+			setSpriteSheetSrcRect((int)BUTTON_SPRITE_MOUSE_UP);
 			break;
 
 		case BUTTON_SPRITE_TOTAL:
+			setSpriteSheetSrcRect((int)BUTTON_SPRITE_TOTAL);
 			break;
-
 	}
 }
 
@@ -131,4 +130,5 @@ void Button::handleEvent(SDL_Event* event)
 void Button::render()
 {
 }
+
 

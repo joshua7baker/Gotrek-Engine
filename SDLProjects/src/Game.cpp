@@ -10,6 +10,7 @@ const int screenHeight{ 480 }; */
 TextObject* testText = nullptr;
 TextObject* testText2;
 TextObject* testText3;
+SpriteSheet* testbuttonsheet;
 Button* testBtn;
 
 Game::Game() {
@@ -108,9 +109,15 @@ bool Game::init() {
 		//testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
 		//testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
 
-		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png");
+		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png", nullptr);
+
 
 		renderManager = new RenderManager(renderer);
+		renderManager->addObject(gameObjOne);
+
+		testbuttonsheet = new SpriteSheet("button test");
+		testBtn = new Button("Test Button", screenWidth / 2, screenHeight / 2, 200, 100, "", "assets/buttontest.png", testbuttonsheet);
+
 		isRunning = true;
 		return success;
 	}
@@ -126,7 +133,11 @@ void Game::handleEvents()
 		{
 			isRunning = false;
 		}
-		else if (event.type == SDL_KEYDOWN)
+		
+		//Handle button events (Utilize a vector to hold all button & their events in the future)
+		//testBtn->handleEvent(&event);
+
+		if (event.type == SDL_KEYDOWN)
 		#pragma region Input
 		{
 			switch (event.key.keysym.sym)
@@ -163,8 +174,8 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-
-	//renderManager->renderObjects();
+	//renderManager->renderButtonObject(testBtn);
+	renderManager->renderObjects();
 	SDL_RenderPresent(renderer);
 }
 

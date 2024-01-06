@@ -4,31 +4,27 @@
 #include "RenderableObject.h"
 #include "Structs.h"
 
-class GameObject
+class GameObject : public RenderableObject
 {
 public:
-	GameObject(const char* name, int x, int y, const char* filePath, SDL_Rect* clip = nullptr);
+	GameObject(const char* objectName, int x, int y, char const* filePath, SDL_Rect* clip, bool centerObj = true, SpriteSheet* spriteSheet = nullptr);
 	~GameObject();
 
 	void update();
 
-	RenderData* getRenderData(); //Get rendering info required for rendering (called from RenderManager)
-
-	const char* name; //Game object Name
+	const char* name;
 
 private:
-	int xPos; //Game Object X Coordinate
-	int yPos; //Game Object Y Coordinate
+	int xPos;
+	int yPos;
 
-	char const* t_FilePath; //File path to load texture from
+	char const* t_FilePath;
 
-	SDL_Texture* objTexture; //Game object texture
-	int t_OriginalWidth, t_OriginalHeight; // Texture height & width
-	int t_ModifiedWidth, t_ModifiedHeight; // Texture height & width if modified by clipping from a sprite sheet/ image
+	SDL_Texture* objTexture;
+	int t_OriginalWidth, t_OriginalHeight;
+	int t_ModifiedWidth, t_ModifiedHeight;
 
-	SDL_Rect* srcRect; //src rect to use for rendering
-	SDL_Rect* destRect;//dest rect to use for rendering
-
-	RenderData objRenderInfo; //Render info to be passed to RenderManager
+	SDL_Rect srcRect;
+	SDL_Rect destRect;
 };
 

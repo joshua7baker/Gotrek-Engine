@@ -1,12 +1,13 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include <vector>
 #include "Structs.h"
 #include "RenderableObject.h"
 class Button : public RenderableObject
 {
 public:
-	Button(std::string& name, int x, int y, int& width, int& height, std::string* textContent, const char* textureFilePath, SpriteSheet* spriteSheet = nullptr);
+	Button(std::string name, int x, int y, int width, int height, std::string textContent = nullptr, const char* textureFilePath = nullptr, SpriteSheet* spriteSheet = nullptr);
 	~Button();
 
 	enum EButtonSprite {
@@ -25,17 +26,18 @@ public:
 private:
 
 	std::string buttonName;
-	std::string buttonText;
 	int xPos;
 	int yPos;
 	int buttonWidth;
 	int buttonHeight;
+	std::string buttonText;
 
 	const char* t_FilePath = nullptr;
 	SDL_Texture* b_Texture;
 
 	SDL_Point m_Position;
 	EButtonSprite buttonStatusSprite;
-	SpriteSheet* b_spriteSheet;
-};
+
+	SDL_Rect destRect;
+}; 
 
