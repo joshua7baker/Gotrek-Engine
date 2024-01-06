@@ -17,7 +17,7 @@ public:
 
 	virtual S_RenderData* getRenderData();
 
-	void setRenderData(SDL_Texture* tex, SDL_Rect* src, SDL_Rect* dest);
+	void setRenderData(SDL_Texture* tex, SDL_Rect* src = nullptr, SDL_Rect* dest = nullptr);
 	void setSpriteSheet(SpriteSheet* spriteSheet);
 	void setSpriteSheetSrcRect(int x = -1 );
 	void setRenderSrcRect(SDL_Rect&src);

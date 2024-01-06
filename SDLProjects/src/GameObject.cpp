@@ -12,7 +12,7 @@ GameObject::GameObject(const char* objectName, int x, int y, char const* filePat
 
 	 if (objTexture != nullptr)
 	 {
-		 setRenderTexture(objTexture);
+		 setRenderTexture(objTexture); 
 		 t_OriginalWidth = TextureManager::getWidth(objTexture);
 		 t_OriginalHeight = TextureManager::getHeight(objTexture);
 	 }

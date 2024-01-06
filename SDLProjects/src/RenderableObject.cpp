@@ -32,7 +32,8 @@ void RenderableObject::setRenderData(SDL_Texture* tex, SDL_Rect* src, SDL_Rect* 
 
 void RenderableObject::setSpriteSheet(SpriteSheet* spriteSheet)
 {
-	spriteSheetRects = *spriteSheet->getSprites();
+	if (spriteSheet != nullptr)
+		spriteSheetRects = *spriteSheet->getSprites();
 }
 
 void RenderableObject::setSpriteSheetSrcRect(int index)
@@ -55,7 +56,8 @@ void RenderableObject::setRenderDest(SDL_Rect &dest)
 
 void RenderableObject::setRenderTexture(SDL_Texture* tex)
 {
-	texture = tex;
+	if (tex != nullptr)
+		texture = tex;
 }
 
 std::vector<SDL_Rect>* RenderableObject::setSpriteVector(SpriteSheet* spriteSheet)

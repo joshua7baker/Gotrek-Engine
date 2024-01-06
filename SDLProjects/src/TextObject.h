@@ -1,11 +1,9 @@
 #pragma once
 #include <SDL_ttf.h>
-#include "Structs.h"
-#include "GameObject.h"
+#include "RenderableObject.h"
 #include "Output.h"
 
-
-class TextObject
+class TextObject : public RenderableObject
 {
 public:
 	TextObject(const char* name, const char* textContent, int x, int y, char const* fontFilePath = nullptr);
@@ -13,14 +11,10 @@ public:
 
 	int getTextWidth();
 	int getTextHeight();
-
-	TextRenderData* getRenderInfo();
-
-
+	 
 	const char* name;
 
 private:
-
 	const char* textContent;
 
 	int xPos;
@@ -33,10 +27,7 @@ private:
 	int t_OriginalWidth, t_OriginalHeight; // Texture height & width
 	int t_ModifiedWidth, t_ModifiedHeight; // Texture height & width if modified by clipping from a sprite sheet/ image
 
-	SDL_Rect* destRect;
+	SDL_Rect destRect;
 	TTF_Font* activeFont; // current font to render text with
-
-	TextRenderData* renderInfo; // render data to use for rendering text
-
 };
 

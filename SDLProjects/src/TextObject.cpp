@@ -14,8 +14,10 @@ TextObject::TextObject(const char* name, const char* textContent, int x, int y, 
 
 	activeFont = nullptr;
 		
-	destRect = new SDL_Rect{ xPos, yPos, t_OriginalWidth, t_OriginalHeight };
-	renderInfo = new TextRenderData{t_Texture, destRect};
+	destRect = { xPos, yPos, t_OriginalWidth, t_OriginalHeight };
+
+	setRenderDest(destRect);
+	setRenderTexture(t_Texture);
 }
 
 TextObject::~TextObject(){
@@ -29,17 +31,4 @@ int TextObject::getTextWidth()
 int TextObject::getTextHeight()
 {
 	return t_ModifiedHeight;
-}
-
-TextRenderData* TextObject::getRenderInfo()
-{
-	if (renderInfo != NULL)
-	{
-		return renderInfo;
-	}
-	else
-	{
-		Output::PrintMessage("Error getting render info from TextObject, variable TextRenderData* renderInfo cannot be NULL");
-		return nullptr;
-	}
 }

@@ -15,7 +15,7 @@ public:
 	void renderObjects();
 
 	void renderObject(RenderableObject* objToRender);
-	void renderTextObject(TextRenderData* textRenderInfo);
+	void renderTextObject(RenderableObject* textRenderInfo);
 
 	void addObject(GameObject* objToRender); //Add game object to vector list of objects to be rendered to screen.
 	void removeObject(GameObject &objToRender); //Remove game object from vector list of objects to be rendered to screen.

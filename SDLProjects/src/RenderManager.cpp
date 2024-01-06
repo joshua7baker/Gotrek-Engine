@@ -7,8 +7,7 @@ RenderManager::RenderManager(SDL_Renderer* renderer)
 	setRenderer(renderer);
 }
 
-RenderManager::~RenderManager()
-{
+RenderManager::~RenderManager(){
 }
 
 bool RenderManager::setRenderer(SDL_Renderer* renderer)
@@ -58,15 +57,17 @@ void RenderManager::renderObject(RenderableObject* objToRender)
 			SDL_RenderCopy(s_renderer, tempRenderData.texture, tempRenderData.src, tempRenderData.dest);
 		}
 		else 
-			Output::PrintMessage("Error rendering copy of GameObject, RenderData cannot be null and must have a Texture");
+			Output::PrintMessage("Error rendering copy of RenderableObject, tempRenderData must have a Texture");
 	}
 	else 
-		Output::PrintMessage("Error getting rendering GameObject, s_renderer cannot be null");
+		Output::PrintMessage("Error getting rendering Object, s_renderer cannot be null");
 }
 
-void RenderManager::renderTextObject(TextRenderData* textRenderInfo)
+void RenderManager::renderTextObject(RenderableObject* textRenderInfo)
 {
-	SDL_RenderCopy(s_renderer, textRenderInfo->texture, nullptr, textRenderInfo->dest);
+	S_RenderData tempRenderData = *textRenderInfo->getRenderData();
+
+	SDL_RenderCopy(s_renderer, tempRenderData.texture, nullptr, tempRenderData.dest);
 }
 
 //Add game object to render to vector list

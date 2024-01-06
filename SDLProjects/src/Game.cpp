@@ -7,7 +7,6 @@
 /*const int screenWidth{ 640 };
 const int screenHeight{ 480 }; */ 
 
-TextObject* testText = nullptr;
 TextObject* testText2;
 TextObject* testText3;
 SpriteSheet* testbuttonsheet;
@@ -106,7 +105,7 @@ bool Game::init() {
 			Output::PrintMessage("Default font setup failed.");
 
 		//testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 5);
-		//testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
+		testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
 		//testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
 
 		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png", nullptr);
@@ -175,6 +174,7 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	//renderManager->renderButtonObject(testBtn);
+	renderManager->renderTextObject(testText2);
 	renderManager->renderObjects();
 	SDL_RenderPresent(renderer);
 }
