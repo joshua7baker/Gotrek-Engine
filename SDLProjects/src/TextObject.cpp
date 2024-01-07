@@ -23,6 +23,12 @@ TextObject::TextObject(const char* name, const char* textContent, int x, int y, 
 TextObject::~TextObject(){
 }
 
+void TextObject::setTextContent(const char* newText)
+{
+	if (newText != nullptr)
+		textContent = newText;
+}
+
 int TextObject::getTextWidth()
 {
 	return t_ModifiedWidth;

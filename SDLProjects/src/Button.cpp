@@ -2,7 +2,7 @@
 #include "Output.h"
 #include "TextureManager.h"
 
-Button::Button(std::string name, int x, int y, int width, int height, std::string textContent, const char* textureFilePath, SpriteSheet* spriteSheet)
+Button::Button(const std::string name, int x, int y, int width, int height, std::string textContent, const char* textureFilePath, SpriteSheet* spriteSheet)
 	: buttonName(name), xPos(x), yPos(y), buttonWidth(width), buttonHeight(height)
 {
 	if (name == "")
@@ -37,6 +37,12 @@ Button::Button(std::string name, int x, int y, int width, int height, std::strin
 Button::~Button(){
 }
 
+void Button::setPosition(int x, int y)
+{
+	m_Position.x = x;
+	m_Position.y = y;
+}
+
 void Button::setButtonStatus(EButtonSprite newStatus)
 {
 	buttonStatusSprite = newStatus; //Set new button sprite status
@@ -62,12 +68,6 @@ void Button::setButtonStatus(EButtonSprite newStatus)
 			setSpriteSheetSrcRect((int)BUTTON_SPRITE_TOTAL);
 			break;
 	}
-}
-
-void Button::setPosition(int x, int y)
-{
-	m_Position.x = x;
-	m_Position.y = y;
 }
 
 void Button::handleEvent(SDL_Event* event)
@@ -125,10 +125,6 @@ void Button::handleEvent(SDL_Event* event)
 			}
 		}
 	}
-}
-
-void Button::render()
-{
 }
 
 

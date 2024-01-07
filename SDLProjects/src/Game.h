@@ -5,10 +5,10 @@
 #include <iostream>
 #include "TextureManager.h"
 #include "Output.h"
-#include "Shape.h"
 #include "Viewport.h"
 #include "RenderManager.h"
 #include "GameSettings.h"
+#include "Timer.h"
 
 class Game
 {
@@ -34,6 +34,5 @@ private:
 
 	int screenWidth;
 	int screenHeight;
-
 };
 

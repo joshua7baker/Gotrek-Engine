@@ -7,7 +7,7 @@
 class Button : public RenderableObject
 {
 public:
-	Button(std::string name, int x, int y, int width, int height, std::string textContent = nullptr, const char* textureFilePath = nullptr, SpriteSheet* spriteSheet = nullptr);
+	Button(const std::string name, int x, int y, int width, int height, std::string textContent = "", const char* textureFilePath = nullptr, SpriteSheet* spriteSheet = nullptr);
 	~Button();
 
 	enum EButtonSprite {
@@ -18,10 +18,9 @@ public:
 		BUTTON_SPRITE_TOTAL = 4
 	};
 
-	void setButtonStatus(EButtonSprite newStatus); //set button enum status
 	void setPosition(int x, int y); //set button position
+	void setButtonStatus(EButtonSprite newStatus); //set button enum status
 	void handleEvent(SDL_Event* event); //handle mouse event
-	void render(); //show button sprite
 
 private:
 

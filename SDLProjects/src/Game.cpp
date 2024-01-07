@@ -11,6 +11,7 @@ TextObject* testText2;
 TextObject* testText3;
 SpriteSheet* testbuttonsheet;
 Button* testBtn;
+Button* testbutton;
 
 Game::Game() {
 	gameSettings = new GameSettings();
@@ -104,19 +105,13 @@ bool Game::init() {
 		else 
 			Output::PrintMessage("Default font setup failed.");
 
-		//testText = new TextObject("Test Thing", "Test Text Here", screenWidth / 2, screenHeight / 5);
-		testText2 = new TextObject("Test Thing", "TIm here too!", screenWidth / 2, screenHeight / 3, nullptr);
-		//testText3 = new TextObject("Test Thing", "Weenie!", screenWidth / 2, screenHeight / 2, nullptr);
-
 		GameObject* gameObjOne = new GameObject("Test", screenWidth / 2, screenHeight / 2, "assets/foo.png", nullptr);
 
 
 		renderManager = new RenderManager(renderer);
-		renderManager->addObject(gameObjOne);
 
-		testbuttonsheet = new SpriteSheet("button test");
-		testBtn = new Button("Test Button", screenWidth / 2, screenHeight / 2, 200, 100, "", "assets/buttontest.png", testbuttonsheet);
-
+		testbuttonsheet = new SpriteSheet("buttonTest", 150, 100, 150, 100);
+		testbutton = new Button("test", screenWidth / 2, screenHeight / 2, 150, 100, "", "assets/buttontest.png", testbuttonsheet);
 		isRunning = true;
 		return success;
 	}
@@ -134,7 +129,7 @@ void Game::handleEvents()
 		}
 		
 		//Handle button events (Utilize a vector to hold all button & their events in the future)
-		//testBtn->handleEvent(&event);
+		testbutton->handleEvent(&event);
 
 		if (event.type == SDL_KEYDOWN)
 		#pragma region Input
@@ -173,9 +168,8 @@ void Game::handleEvents()
 void Game::render()
 {
 	SDL_RenderClear(renderer);
-	//renderManager->renderButtonObject(testBtn);
-	renderManager->renderTextObject(testText2);
-	renderManager->renderObjects();
+	renderManager->renderObject(testbutton);
+	//renderManager->renderObjects();
 	SDL_RenderPresent(renderer);
 }
 

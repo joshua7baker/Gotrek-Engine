@@ -5,7 +5,7 @@
 class SpriteSheet
 {
 public:
-	SpriteSheet(const char* texName);
+	SpriteSheet(const char* spriteSheetName, int x, int y, int w, int h);
 	~SpriteSheet();
 
 	std::vector<SDL_Rect>* getSprites();

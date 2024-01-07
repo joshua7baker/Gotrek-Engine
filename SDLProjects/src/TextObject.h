@@ -9,6 +9,8 @@ public:
 	TextObject(const char* name, const char* textContent, int x, int y, char const* fontFilePath = nullptr);
 	~TextObject();
 
+	void setTextContent(const char* newText);
+
 	int getTextWidth();
 	int getTextHeight();
 	 
